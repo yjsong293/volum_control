@@ -16,7 +16,9 @@ object VolumeApplier {
                         val percent = VolumePrefs.getPercent(context, setting)
                         val target = ((max * percent) / 100.0).toInt().coerceIn(0, max)
                         val current = audio.getStreamVolume(setting.stream)
-                        if (current != target) {
+
+                        // 현재 음량이 설정 음량보다 높을 때만 제한
+                        if (current > target) {
                             audio.setStreamVolume(setting.stream, target, 0)
                         }
                     }
